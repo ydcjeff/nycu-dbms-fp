@@ -91,6 +91,7 @@ def run():
                               id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
                               country_id INT NOT NULL,
                               institution_id INT NOT NULL,
+                              ranked_year INT NOT NULL,
                               world_rank VARCHAR(255) NOT NULL,
                               academic_reputation_score VARCHAR(255),
                               academic_reputation_rank VARCHAR(255),
@@ -116,7 +117,7 @@ def run():
                               )""")
         )
 
-        def bootstrap(file: str):
+        def bootstrap(file: str, year: int):
             with open(file, "r") as f:
                 rows = csv.reader(f, delimiter=",")
                 next(rows)  # skip header
@@ -151,6 +152,7 @@ def run():
                         sa.text(f"""INSERT INTO rankings (
                                           country_id,
                                           institution_id,
+                                          ranked_year,
                                           world_rank,
                                           academic_reputation_score,
                                           academic_reputation_rank,
@@ -175,6 +177,7 @@ def run():
                                           VALUES (
                                             {country_id},
                                             {institution_id},
+                                            {year},
                                             '{row[0] or 'NULL'}',
                                             '{row[3] or 'NULL'}',
                                             '{row[4] or 'NULL'}',
@@ -200,9 +203,9 @@ def run():
                     )
             session.commit()
 
-        bootstrap("2025.csv")
-        bootstrap("2024.csv")
-        bootstrap("2023.csv")
+        bootstrap("2025.csv", 2025)
+        bootstrap("2024.csv", 2024)
+        bootstrap("2023.csv", 2023)
 
 
 if __name__ == "__main__":
