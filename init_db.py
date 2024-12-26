@@ -203,9 +203,9 @@ def run():
                     )
             session.commit()
 
-        bootstrap("2025.csv", 2025)
-        bootstrap("2024.csv", 2024)
-        bootstrap("2023.csv", 2023)
+        bootstrap("_data/2025.csv", 2025)
+        bootstrap("_data/2024.csv", 2024)
+        bootstrap("_data/2023.csv", 2023)
 
 
 if __name__ == "__main__":
