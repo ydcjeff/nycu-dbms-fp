@@ -2,9 +2,11 @@
 
 1. First populate the database with `init_db.py`. See the python script for more.
 
-2. Make sure PHP 8.x is installed with `pdo_mysql` extension enabled.
+2. Copy `.env.example` to `.env` and configure your DB parameters.
 
-3. Run `php -S localhost:3000` to see the web app.
+3. Make sure PHP 8.x is installed with `pdo_mysql` extension enabled.
+
+4. Run `php -S localhost:3000` to see the web app.
 
 ## Directory Structure
 
