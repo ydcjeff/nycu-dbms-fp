@@ -1,6 +1,9 @@
 <?php
 
-class RankingsController {
+require_once __DIR__ . '/../db.php';
+
+class RankingsController
+{
   private $db;
 
   public function __construct()
@@ -8,13 +11,24 @@ class RankingsController {
     $this->db = new DB();
   }
 
-  public function find_by_institute_id(int $id)
+  // index route
+  public function index()
   {
-    $results = $this->db->query("SELECT * FROM rankings WHERE institution_id = $id ORDER BY ranked_year DESC");
-    return $results;
+    // define data that is used in compare.php route
+    $uni1_query = (int)($_GET['uni1'] ?? 1);
+    $uni2_query = (int)($_GET['uni2'] ?? 2);
+    $universities = $this->get_all_universities();
+    $uni1_ranks = $this->find_by_institute_id($uni1_query);
+    $uni2_ranks = $this->find_by_institute_id($uni2_query);
+    require_once __DIR__ . '/../views/compare.php';
   }
-  
-  public function get_all_universities()
+
+  private function find_by_institute_id(int $id)
+  {
+    return $this->db->query("SELECT * FROM rankings WHERE institution_id = $id ORDER BY ranked_year DESC");
+  }
+
+  private function get_all_universities()
   {
     return $this->db->query("SELECT * FROM institutions");
   }
