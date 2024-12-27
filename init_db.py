@@ -42,6 +42,7 @@ def run():
         session.execute(sa.text("DROP TABLE IF EXISTS users"))
         session.execute(sa.text("DROP TABLE IF EXISTS comments"))
         session.execute(sa.text("DROP TABLE IF EXISTS notifications"))
+        
 
         # CREATE all tables
         session.execute(
@@ -86,6 +87,13 @@ def run():
                               overall VARCHAR(255),
                               FOREIGN KEY (institution_id) REFERENCES institutions(id),
                               FOREIGN KEY (country_id) REFERENCES countries(id)
+                              )""")
+        )
+        session.execute(
+            sa.text("""CREATE TABLE users(
+                              id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                              username VARCHAR(255) NOT NULL UNIQUE,
+                              hash_password VARCHAR(255) NOT NULL
                               )""")
         )
 
