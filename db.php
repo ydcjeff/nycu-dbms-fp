@@ -1,6 +1,6 @@
 <?php
 
-$env = parse_ini_file('.env');
+$env = parse_ini_file('.env.example');
 $DB_USERNAME = $env['DB_USERNAME'];
 $DB_PASSWORD = $env['DB_PASSWORD'];
 $DB_HOST = $env['DB_HOST'];
@@ -26,6 +26,17 @@ class DB {
       return $stmt->fetchAll();
     } catch (\PDOException $e) {
       die("query failed with" . $e->getMessage());
+    }
+  }
+
+  public function prepare(string $query)
+  {
+    try{
+      global $pdo;
+      $stmt = $pdo->prepare($query);
+      return $stmt;
+    } catch (\Throwable $th) {
+      die("unable to prepare query". $th->getMessage());
     }
   }
 }
