@@ -118,7 +118,7 @@ def run():
         )
 
         def bootstrap(file: str, year: int):
-            with open(file, "r") as f:
+            with open(file, "r", encoding='utf-8') as f:
                 rows = csv.reader(f, delimiter=",")
                 next(rows)  # skip header
                 for row in rows:
