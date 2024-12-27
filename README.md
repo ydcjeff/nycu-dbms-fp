@@ -1,10 +1,12 @@
 # nycu-dbms-fp
 
-1. First populate the database with `init_db.py`. See the python script for more.
+1. Copy `.env.example` to `.env` and configure your DB parameters.
 
-2. Make sure PHP 8.x is installed with `pdo_mysql` extension enabled.
+2. Run `init_db.py` to populate the database.
 
-3. Run `php -S localhost:3000` to see the web app.
+3. Make sure PHP 8.x is installed with `pdo_mysql` extension enabled.
+
+4. Run `php -S localhost:3000` to see the web app.
 
 ## Directory Structure
 
