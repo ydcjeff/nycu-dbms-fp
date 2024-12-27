@@ -3,61 +3,33 @@
 # - sqlalchemy
 # - pymysql
 # pip install sqlalchemy pymysql
-# Run python init_db.py -h to see help of this script
 
-import argparse
 import csv
+import os
 
 import sqlalchemy as sa
 from sqlalchemy.orm import Session
 
 
 def run():
-    parser = argparse.ArgumentParser(description="init db with the data")
-    parser.add_argument(
-        "-u",
-        "--username",
-        default="root",
-        type=str,
-        help="username to connect to MySQL",
-    )
-    parser.add_argument(
-        "-p",
-        "--password",
-        default="",
-        type=str,
-        help="password to connect to MySQL",
-    )
-    parser.add_argument(
-        "-H",
-        "--host",
-        default="127.0.0.1",
-        type=str,
-        help="hostname to connect to MySQL",
-    )
-    parser.add_argument(
-        "-P",
-        "--port",
-        default="3306",
-        type=int,
-        help="port to connect to MySQL",
-    )
-    parser.add_argument(
-        "--db",
-        default="uni_ranking",
-        type=str,
-        help="database name to create",
-    )
-    args = parser.parse_args()
+    if not os.path.exists(".env"):
+        print("No .env found. Run cp .env.example .env")
+        exit(1)
+
+    env = {}
+    with open(".env", "r", encoding="utf-8") as f:
+        while line := f.readline():
+            key, value = line.rstrip().split("=")
+            env[key] = value
 
     engine = sa.create_engine(
         sa.URL.create(
             drivername="mysql+pymysql",
-            database=args.db,
-            host=args.host,
-            password=args.password,
-            port=args.port,
-            username=args.username,
+            database=env["DB_NAME"],
+            host=env["DB_HOST"],
+            password=env["DB_PASSWORD"],
+            port=env["DB_PORT"],
+            username=env["DB_USERNAME"],
         ),
         echo=True,
     )
@@ -118,7 +90,7 @@ def run():
         )
 
         def bootstrap(file: str, year: int):
-            with open(file, "r", encoding='utf-8') as f:
+            with open(file, "r", encoding="utf-8") as f:
                 rows = csv.reader(f, delimiter=",")
                 next(rows)  # skip header
                 for row in rows:
