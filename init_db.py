@@ -88,6 +88,13 @@ def run():
                               FOREIGN KEY (country_id) REFERENCES countries(id)
                               )""")
         )
+        session.execute(
+            sa.text("""CREATE TABLE users(
+                              id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                              username VARCHAR(255) NOT NULL UNIQUE,
+                              hash_password VARCHAR(255) NOT NULL
+                              )""")
+        )
 
         def bootstrap(file: str, year: int):
             with open(file, "r", encoding="utf-8") as f:

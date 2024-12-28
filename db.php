@@ -28,4 +28,15 @@ class DB {
       die("query failed with" . $e->getMessage());
     }
   }
+
+  public function prepare(string $query)
+  {
+    try {
+      global $pdo;
+      $stmt = $pdo->prepare($query);
+      return $stmt;
+    } catch (\Throwable $th) {
+      die("unable to prepare query". $th->getMessage());
+    }
+  }
 }
