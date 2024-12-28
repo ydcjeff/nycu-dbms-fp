@@ -6,23 +6,27 @@ ob_start();
 
 <div class="grid grid-cols-2 gap-x-2">
   <form action="/" method="get" class="col-start-2">
+    <input type="hidden" name="uni1" id="uni1-q" value="<?php echo $uni1_query ?>">
+    <input type="hidden" name="uni2" id="uni2-q" value="<?php echo $uni2_query ?>">
     <div class="grid grid-cols-2 gap-x-4">
-      <!-- TODO: replace a big list with search box -->
-      <select name="uni1" id="uni1">
+      <label for="uni1">Choose University 1</label>
+      <label for="uni2">Choose University 2</label>
+      <input list="uni1-list" id="uni1" value="<?php echo $universities[$uni1_query - 1]['name'] ?>">
+      <datalist id="uni1-list">
         <?php foreach ($universities as $uni): ?>
-          <option value="<?php echo $uni['id'] ?>" <?php echo $uni['id'] === $uni1_query ? 'selected' : '' ?>>
+          <option data-value="<?php echo $uni['id'] ?>">
             <?php echo $uni['name'] ?>
           </option>
         <?php endforeach; ?>
-      </select>
-      <!-- TODO: replace a big list with search box -->
-      <select name="uni2" id="uni2">
+      </datalist>
+      <input list="uni2-list" id="uni2" value="<?php echo $universities[$uni2_query - 1]['name'] ?>">
+      <datalist id="uni2-list">
         <?php foreach ($universities as $uni): ?>
-          <option value="<?php echo $uni['id'] ?>" <?php echo $uni['id'] === $uni2_query ? 'selected' : '' ?>>
+          <option data-value="<?php echo $uni['id'] ?>">
             <?php echo $uni['name'] ?>
           </option>
         <?php endforeach; ?>
-      </select>
+      </datalist>
     </div>
     <button type="submit">Search</button>
   </form>
@@ -159,6 +163,19 @@ ob_start();
     <?php endforeach; ?>
   </div>
 </div>
+
+<script>
+  /** @type {Array<{ id: number, country_id: number, name: string }>} */
+  const universities = <?php echo json_encode($universities) ?>;
+  const uni1_q = document.getElementById('uni1-q');
+  const uni2_q = document.getElementById('uni2-q');
+  document.getElementById('uni1').addEventListener('change', (ev) => {
+    uni1_q.setAttribute('value', universities.find((v) => v.name === ev.target.value).id);
+  });
+  document.getElementById('uni2').addEventListener('change', (ev) => {
+    uni2_q.setAttribute('value', universities.find((v) => v.name === ev.target.value).id);
+  });
+</script>
 
 <?php
 // get the current output buffer and assign to $body which is used in base.php
