@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/db.php';
+
 require_once __DIR__ . '/controllers/user_controller.php';
 
 require_once './views/signup.php';
@@ -14,8 +14,6 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         $password,
         $binary = false
     );
-    $connecter->insert_user($username,$hash_password);
-    if(!empty($e)){
-        $message = "Sign up successfully, Please login ";
-    }
+    $message = $connecter->insert_user($username,$hash_password);
+    display_message($message);
 }
