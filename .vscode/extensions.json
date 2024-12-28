@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "devsense.phptools-vscode"
+    "devsense.phptools-vscode",
+    "editorconfig.editorconfig"
   ]
 }

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo $title . 'University Ranking System' ?></title>
+  <title><?php echo $title ?? '' . 'University Ranking System' ?></title>
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
@@ -12,6 +12,12 @@
   <script>
     tailwind.config = { corePlugins: { preflight: false } };
   </script>
+  <style>
+    /* https://picocss.com/docs/css-variables */
+    :root {
+      --pico-font-size: 1rem;
+    }
+  </style>
 </head>
 <body class="container">
   <header class="flex justify-between">
