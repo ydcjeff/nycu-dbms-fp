@@ -31,12 +31,12 @@ class DB {
 
   public function prepare(string $query)
   {
-    try{
+    try {
       global $pdo;
       $stmt = $pdo->prepare($query);
       return $stmt;
     } catch (\Throwable $th) {
       die("unable to prepare query". $th->getMessage());
-    } 
+    }
   }
 }
