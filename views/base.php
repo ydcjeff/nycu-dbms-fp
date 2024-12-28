@@ -21,7 +21,7 @@
 </head>
 <body class="container">
   <header class="flex justify-between">
-    <h1>Welcome to University Ranking System</h1>
+    <h1><a href="/">Welcome to University Ranking System</a></h1>
     <nav class="items-center gap-x-2">
       <a href="/login.php">Login</a>
       <a href="/signup.php">Sign up</a>
