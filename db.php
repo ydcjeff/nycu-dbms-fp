@@ -37,6 +37,6 @@ class DB {
       return $stmt;
     } catch (\Throwable $th) {
       die("unable to prepare query". $th->getMessage());
-    }
+    } 
   }
 }
