@@ -5,7 +5,7 @@ require_once __DIR__ . '/controllers/user_controller.php';
 require_once './views/signup.php';
 
 if(isset($_POST['username']) && isset($_POST['password'])){
-    $connecter = new usercontroller();
+    $connecter = new UserController();
     $username = $_POST['username'];
     $password = $_POST['password'];
     $algo = 'sha256';

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../db.php';
 
-class usercontroller {
+class UserController {
   private $db;
 
   public function __construct()
