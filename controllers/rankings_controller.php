@@ -15,8 +15,8 @@ class RankingsController
   public function index()
   {
     // define data that is used in compare.php route
-    $uni1_query = (int)($_GET['uni1'] ?? 1);
-    $uni2_query = (int)($_GET['uni2'] ?? 2);
+    $uni1_query = (int)(empty($_GET['uni1']) ? 1 : $_GET['uni1']);
+    $uni2_query = (int)(empty($_GET['uni2']) ? 2 : $_GET['uni2']);
     $universities = $this->get_all_universities();
     $uni1_ranks = $this->find_by_institute_id($uni1_query);
     $uni2_ranks = $this->find_by_institute_id($uni2_query);
@@ -30,6 +30,6 @@ class RankingsController
 
   private function get_all_universities()
   {
-    return $this->db->query("SELECT * FROM institutions");
+    return $this->db->query("SELECT * FROM institutions ORDER BY id ASC");
   }
 }
