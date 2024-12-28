@@ -23,6 +23,12 @@
   <header class="flex justify-between">
     <h1><a href="/">Welcome to University Ranking System</a></h1>
     <nav class="items-center gap-x-2">
+      <?php 
+      session_start();
+      if(isset($_SESSION['email'])){
+        echo $_SESSION['email'];
+      }
+      ?>
       <a href="/login.php">Login</a>
       <a href="/signup.php">Sign up</a>
     </nav>
