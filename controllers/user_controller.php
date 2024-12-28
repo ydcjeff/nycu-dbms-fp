@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../db.php';
 
 class usercontroller {
   private $db;
@@ -23,11 +24,20 @@ class usercontroller {
 
   public function insert_user(string $username, string $hash_password)
   {
-    $sql = "INSERT INTO users VALUES ( :username , :hash_password )";
-    $sth = $this->db->prepare($sql);   
+    $sql = "INSERT INTO users (username,hash_password)VALUES ( :username , :hash_password )";
+    $sth = $this->db->prepare(query: $sql);   
     $sth->bindParam(":username",$username);
     $sth->bindParam(":hash_password",$hash_password);
-    $sth->execute();
+    try{
+      $sth->execute();
+      return "Sign up successfully, Please login";
+    } catch (PDOException $e) {
+     if($e->getCode() == 23000){
+      return "someone has already use this user name!!";
+     } else if($e->getCode() == 0){
+      return $e->getMessage();
+     }
+    }
     
   }
   
