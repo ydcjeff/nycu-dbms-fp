@@ -28,7 +28,7 @@ if(isset($_POST['password'] ) && isset($_POST['new_password'] ) && isset($_SESSI
     $message = $connecter->update_user($username,$hash_password,$hash_new_password);
     display_message($message);
   }else{
-    $message = "password incorect, please try again";
+    $message = "password incorrect, please try again";
     display_message($message);
   }
 }
