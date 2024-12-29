@@ -27,10 +27,12 @@
       session_start();
       if(isset($_SESSION['email'])){
         echo $_SESSION['email'];
+        echo '<a href="/logout.php">Logout</a>';
+      }else{
+        echo '<a href="/login.php">Login</a>';
+        echo '<a href="/signup.php">Sign up</a>';
       }
       ?>
-      <a href="/login.php">Login</a>
-      <a href="/signup.php">Sign up</a>
     </nav>
   </header>
   <?php echo $body ?>
