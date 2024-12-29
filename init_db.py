@@ -42,6 +42,7 @@ def run():
         session.execute(sa.text("DROP TABLE IF EXISTS users"))
         session.execute(sa.text("DROP TABLE IF EXISTS comments"))
         session.execute(sa.text("DROP TABLE IF EXISTS notifications"))
+        
 
         # CREATE all tables
         session.execute(
