@@ -37,4 +37,20 @@ class UserController {
     $sth->setFetchMode(PDO::FETCH_ASSOC);
     return $sth->fetchColumn();
   }
+
+  public function update_user(string $username, string $password , string $new_password)
+  {
+    $sql = "UPDATE users SET hash_password = :new_hash_password WHERE username = :username AND hash_password = :hash_password";
+    $sth = $this->db->prepare($sql);
+    $sth->bindParam(":username", $username);
+    $sth->bindParam(":new_hash_password", $new_password);
+    $sth->bindParam(":hash_password",$password);
+    try{
+      $sth->execute();
+      return "Update successfully";
+    }catch (PDOException $e) {
+      return $e->getMessage();
+    }
+
+  }
 }
