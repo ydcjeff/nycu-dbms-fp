@@ -20,7 +20,7 @@
   </style>
 </head>
 <body class="container">
-  <header class="flex justify-between">
+  <header class="flex justify-between h-[90px] sticky top-0">
     <h1><a href="/">Welcome to University Ranking System</a></h1>
     <nav class="items-center gap-x-2">
       <?php
