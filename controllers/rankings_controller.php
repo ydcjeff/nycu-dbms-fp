@@ -15,6 +15,10 @@ class RankingsController
   // index route
   public function index()
   {
+    if (!empty($_POST) && !isset($_SESSION['user_id'])) {
+      header('location: /login.php');
+      return;
+    }
     if (isset($_POST['action']) && $_POST['action'] === 'update') {
       $this->update_comment($_POST['comment_id'], $_POST['comment']);
     } else if (isset($_POST['action']) && $_POST['action'] === 'del') {

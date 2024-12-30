@@ -169,7 +169,7 @@ ob_start();
           <h3>Comments for <?php echo $universities[$uni1_query - 1]['name']; ?></h3>
           <?php foreach ($comments_uni1 as $comment): ?>
             <div class="comment">
-              <?php if ($comment['username'] === $_SESSION['username']): ?>
+              <?php if (isset($_SESSION['username']) && $comment['username'] === $_SESSION['username']): ?>
                 <button class="cmt-edit">Edit</button>
                 <button form="del-cmt-<?php echo $comment['id'] ?>" class="cmt-del">Del</button>
               <?php endif ?>
@@ -204,7 +204,7 @@ ob_start();
           <h3>Comments for <?php echo $universities[$uni2_query - 1]['name']; ?></h3>
           <?php foreach ($comments_uni2 as $comment): ?>
             <div class="comment">
-              <?php if ($comment['username'] === $_SESSION['username']): ?>
+              <?php if (isset($_SESSION['username']) && $comment['username'] === $_SESSION['username']): ?>
                 <button class="cmt-edit">Edit</button>
                 <button form="del-cmt-<?php echo $comment['id'] ?>" class="cmt-del">Del</button>
               <?php endif ?>
