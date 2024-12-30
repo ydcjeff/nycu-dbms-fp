@@ -163,6 +163,112 @@ ob_start();
     <?php endforeach; ?>
   </div>
 </div>
+<?php
+// Fetch comments for each university
+require_once __DIR__ . '/../controllers/comment_controller.php';
+
+$commentcrtl = new CommentController();
+$comments_uni1 = $commentcrtl->get_comments($uni1_query);  
+$comments_uni2 = $commentcrtl->get_comments($uni2_query);  
+?>
+
+<div class="comments-container">
+    <!-- Display comments for University 1 -->
+    <div class="comments-column">
+        <h3>Comments for <?php echo $universities[$uni1_query - 1]['name']; ?></h3>
+        <?php foreach ($comments_uni1 as $comment): ?>
+            <div class="comment">
+                <p><strong>User <?php echo $comment['user_id']; ?>:</strong> <?php echo htmlspecialchars($comment['comment']); ?></p>
+            </div>
+        <?php endforeach; ?>
+
+        <!-- Comment form for University 1 -->
+        <form action="comment.php" method="post">
+            <input type="hidden" name="institute_id" value="<?php echo $uni1_query; ?>">
+            <textarea name="comment" placeholder="Enter your comment here"></textarea>
+            <button type="submit" name="submit_comment">Submit Comment</button>
+        </form>
+    </div>
+
+    <!-- Vertical line between the two columns -->
+    <div class="line"></div>
+
+    <!-- Display comments for University 2 -->
+    <div class="comments-column">
+        <h3>Comments for <?php echo $universities[$uni2_query - 1]['name']; ?></h3>
+        <?php foreach ($comments_uni2 as $comment): ?>
+            <div class="comment">
+                <p><strong>User <?php echo $comment['user_id']; ?>:</strong> <?php echo htmlspecialchars($comment['comment']); ?></p>
+            </div>
+        <?php endforeach; ?>
+
+        <!-- Comment form for University 2 -->
+        <form action="comment.php" method="post">
+            <input type="hidden" name="institute_id" value="<?php echo $uni2_query; ?>">
+            <textarea name="comment" placeholder="Enter your comment here"></textarea>
+            <button type="submit" name="submit_comment">Submit Comment</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .comments-container {
+        display: grid;
+        grid-template-columns: 1fr 10px 1fr; /* Two columns with a small gap in between */
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .comments-column {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .line {
+        background-color: #ddd;
+        width: 1px;
+        height: 100%;
+        margin: 0;
+    }
+
+    .comment {
+        margin-bottom: 10px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+    }
+
+    .comment p {
+        margin: 0;
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
 
 <script>
   /** @type {Array<{ id: number, country_id: number, name: string }>} */

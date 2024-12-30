@@ -53,4 +53,15 @@ class UserController
       return $e->getMessage();
     }
   }
+
+  public function get_id(string $username, string $password)
+  {
+    $sql = "SELECT id FROM users WHERE username = :username AND hash_password = :hash_password";
+    $sth = $this->db->prepare($sql);
+    $sth->bindParam(":username", $username);
+    $sth->bindParam(":hash_password", $password);
+    $sth->execute();
+    $sth->setFetchMode(PDO::FETCH_ASSOC);
+    return $sth->fetchColumn();
+  }
 }
