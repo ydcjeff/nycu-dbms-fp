@@ -63,7 +63,7 @@ class RankingsController
     $sql = "INSERT INTO comments (user_id, institute_id, comment) VALUES (?, ?, ?)";
     $this->db->execute($sql, [$user_id, $institute_id, $comment]);
     $comment_id = $this->db->execute("SELECT LAST_INSERT_ID() as id")[0]['id'];
-    $comments = $this->db->execute("SELECT user_id FROM comments WHERE user_id != ? AND institute_id = ?", [$user_id, $institute_id]);
+    $comments = $this->db->execute("SELECT DISTINCT user_id FROM comments WHERE user_id != ? AND institute_id = ?", [$user_id, $institute_id]);
     foreach ($comments as $comment) {
       $this->db->execute("INSERT INTO notifications (user_id, institute_id, comment_id) VALUES (?, ?, ?)", [$comment['user_id'], $institute_id, $comment_id]);
     }
