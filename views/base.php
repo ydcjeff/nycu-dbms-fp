@@ -27,6 +27,7 @@
       session_start();
       if (isset($_SESSION['email'])) {
         echo $_SESSION['email'];
+        echo '<a href="/notifications.php">Notifications</a>';
         echo '<a href="/logout.php">Logout</a>';
         echo '<a href="/edit.php">Edit password</a>';
       }else{

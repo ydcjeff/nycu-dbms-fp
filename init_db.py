@@ -36,15 +36,15 @@ def run():
         print("Connected!")
     except Exception as e:
         print(f"Connection failed: {e}")
-    
+
     with Session(engine) as session:
         # DELETE all tables
+        session.execute(sa.text("DROP TABLE IF EXISTS notifications"))
+        session.execute(sa.text("DROP TABLE IF EXISTS comments"))
         session.execute(sa.text("DROP TABLE IF EXISTS rankings"))
         session.execute(sa.text("DROP TABLE IF EXISTS institutions"))
         session.execute(sa.text("DROP TABLE IF EXISTS countries"))
         session.execute(sa.text("DROP TABLE IF EXISTS users"))
-        session.execute(sa.text("DROP TABLE IF EXISTS comments"))
-        session.execute(sa.text("DROP TABLE IF EXISTS notifications"))
 
         # CREATE all tables
         session.execute(
@@ -103,10 +103,24 @@ def run():
                     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
                     user_id INT NOT NULL,
                     institute_id INT NOT NULL,
-                    comment LONGTEXT
+                    comment LONGTEXT,
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    FOREIGN KEY (institute_id) REFERENCES institutions(id)
             )""")
         )
+        session.execute(
+            sa.text("""CREATE TABLE notifications(
+                    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                    user_id INT NOT NULL,
+                    institute_id INT NOT NULL,
+                    comment_id INT NOT NULL,
+                    FOREIGN KEY (user_id) REFERENCES users(id),
+                    FOREIGN KEY (comment_id) REFERENCES comments(id),
+                    FOREIGN KEY (institute_id) REFERENCES institutions(id)
+                    )""")
+        )
         session.commit()
+
         def bootstrap(file: str, year: int):
             with open(file, "r", encoding="utf-8") as f:
                 rows = csv.reader(f, delimiter=",")
@@ -196,6 +210,7 @@ def run():
         bootstrap("_data/2025.csv", 2025)
         bootstrap("_data/2024.csv", 2024)
         bootstrap("_data/2023.csv", 2023)
+
 
 if __name__ == "__main__":
     run()

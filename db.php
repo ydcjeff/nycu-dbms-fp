@@ -39,4 +39,20 @@ class DB {
       die("unable to prepare query". $th->getMessage());
     }
   }
+
+  public function execute(string $sql, array $params = null)
+  {
+    try {
+      global $pdo;
+      $stmt = $pdo->prepare($sql);
+      if ($stmt->execute($params)) {
+        return $stmt->fetchAll();
+      }
+      else {
+        die("sql exec failed.");
+      }
+    } catch (\PDOException $e) {
+      die("query failed with" . $e->getMessage());
+    }
+  }
 }

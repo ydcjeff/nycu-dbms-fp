@@ -168,8 +168,8 @@ ob_start();
 require_once __DIR__ . '/../controllers/comment_controller.php';
 
 $commentcrtl = new CommentController();
-$comments_uni1 = $commentcrtl->get_comments($uni1_query);  
-$comments_uni2 = $commentcrtl->get_comments($uni2_query);  
+$comments_uni1 = $commentcrtl->get_comments($uni1_query);
+$comments_uni2 = $commentcrtl->get_comments($uni2_query);
 ?>
 
 <div class="comments-container">
@@ -178,7 +178,7 @@ $comments_uni2 = $commentcrtl->get_comments($uni2_query);
         <h3>Comments for <?php echo $universities[$uni1_query - 1]['name']; ?></h3>
         <?php foreach ($comments_uni1 as $comment): ?>
             <div class="comment">
-                <p><strong>User <?php echo $comment['user_id']; ?>:</strong> <?php echo htmlspecialchars($comment['comment']); ?></p>
+                <p><strong>User <?php echo $comment['username']; ?>:</strong> <?php echo htmlspecialchars($comment['comment']); ?></p>
             </div>
         <?php endforeach; ?>
 
@@ -198,7 +198,7 @@ $comments_uni2 = $commentcrtl->get_comments($uni2_query);
         <h3>Comments for <?php echo $universities[$uni2_query - 1]['name']; ?></h3>
         <?php foreach ($comments_uni2 as $comment): ?>
             <div class="comment">
-                <p><strong>User <?php echo $comment['user_id']; ?>:</strong> <?php echo htmlspecialchars($comment['comment']); ?></p>
+                <p><strong>User <?php echo $comment['username']; ?>:</strong> <?php echo htmlspecialchars($comment['comment']); ?></p>
             </div>
         <?php endforeach; ?>
 
