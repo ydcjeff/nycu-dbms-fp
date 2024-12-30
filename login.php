@@ -15,9 +15,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $binary = false
   );
   $result = $connecter->check_login($username, $hash_password);
+  $id_result = $connecter->get_id($username, $hash_password);
   if($result){
     session_start();
     $_SESSION['email'] = $result;
+    $_SESSION['ID'] = $id_result;
     header('Location: /');
   }else{
     display_message("Input Error");
