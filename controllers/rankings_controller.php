@@ -51,7 +51,11 @@ class RankingsController
   private function get_comments(int $institute_id)
   {
     $sql = "SELECT c.*, u.username FROM comments c LEFT JOIN users u ON u.id = c.user_id WHERE c.institute_id = ?";
-    return $this->db->execute($sql, [$institute_id]);
+    $results = $this->db->execute($sql, [$institute_id]);
+    if (count($results) > 0) {
+      return $results;
+    }
+    return [];
   }
 
   private function add_comment(int $user_id, int $institute_id, string $comment)
