@@ -14,11 +14,11 @@ class NotificationsController
 
   public function index()
   {
-    if (!isset($_SESSION['ID'])) {
+    if (!isset($_SESSION['user_id'])) {
       header('location: /login.php');
       return;
     }
-    $user_id = $_SESSION['ID'];
+    $user_id = $_SESSION['user_id'];
     $sql = "SELECT
     n.*,
     c.*,

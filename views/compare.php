@@ -1,10 +1,4 @@
 <?php
-// Fetch comments for each university
-require_once __DIR__ . '/../controllers/comment_controller.php';
-
-$commentcrtl = new CommentController();
-$comments_uni1 = $commentcrtl->get_comments($uni1_query);
-$comments_uni2 = $commentcrtl->get_comments($uni2_query);
 // output buffer on
 ob_start();
 // HTML templating below
@@ -175,7 +169,7 @@ ob_start();
           <h3>Comments for <?php echo $universities[$uni1_query - 1]['name']; ?></h3>
           <?php foreach ($comments_uni1 as $comment): ?>
             <div class="comment">
-              <?php if ($comment['username'] === $_SESSION['email']): ?>
+              <?php if ($comment['username'] === $_SESSION['username']): ?>
                 <button class="cmt-edit">Edit</button>
                 <button form="del-cmt-<?php echo $comment['id'] ?>" class="cmt-del">Del</button>
               <?php endif ?>
@@ -198,7 +192,7 @@ ob_start();
           <?php endforeach; ?>
 
           <!-- Comment form for University 1 -->
-          <form action="comment.php" method="post">
+          <form action="/" method="post">
             <input type="hidden" name="institute_id" value="<?php echo $uni1_query; ?>">
             <textarea name="comment" placeholder="Enter your comment here"></textarea>
             <button type="submit" name="submit_comment">Submit Comment</button>
@@ -210,7 +204,7 @@ ob_start();
           <h3>Comments for <?php echo $universities[$uni2_query - 1]['name']; ?></h3>
           <?php foreach ($comments_uni2 as $comment): ?>
             <div class="comment">
-              <?php if ($comment['username'] === $_SESSION['email']): ?>
+              <?php if ($comment['username'] === $_SESSION['username']): ?>
                 <button class="cmt-edit">Edit</button>
                 <button form="del-cmt-<?php echo $comment['id'] ?>" class="cmt-del">Del</button>
               <?php endif ?>
@@ -233,7 +227,7 @@ ob_start();
           <?php endforeach; ?>
 
           <!-- Comment form for University 2 -->
-          <form action="comment.php" method="post">
+          <form action="/" method="post">
             <input type="hidden" name="institute_id" value="<?php echo $uni2_query; ?>">
             <textarea name="comment" placeholder="Enter your comment here"></textarea>
             <button type="submit" name="submit_comment">Submit Comment</button>

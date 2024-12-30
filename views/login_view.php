@@ -16,16 +16,12 @@ ob_start();
     </div>
     <button type="submit" class="login-btn">Login</button>
   </form>
-
-  <?php
-  function display_message($message)
-  {
-    echo '<div class="container-fluid">
-          <p> ' . $message . ' </p>
-          </div>
-        ';
-  }
-  ?>
+  <?php if (isset($success)): ?>
+    <output class="text-green-600 p-4 bg-green-300"><?php echo $success ?></output>
+  <?php endif ?>
+  <?php if (isset($error)): ?>
+    <output class="text-red-600 p-4 bg-red-300"><?php echo $error ?></output>
+  <?php endif ?>
 </div>
 
 <?php
