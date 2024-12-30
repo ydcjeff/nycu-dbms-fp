@@ -18,4 +18,4 @@
 
 - `db.php` handles DB connection, and DBAPI with PHP.
 
-- `index.php`, `login.php`, `signup.php` are routes.
+- The rest are routes.
