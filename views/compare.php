@@ -175,9 +175,26 @@ ob_start();
           <h3>Comments for <?php echo $universities[$uni1_query - 1]['name']; ?></h3>
           <?php foreach ($comments_uni1 as $comment): ?>
             <div class="comment">
+              <?php if ($comment['username'] === $_SESSION['email']): ?>
+                <button class="cmt-edit">Edit</button>
+                <button form="del-cmt-<?php echo $comment['id'] ?>" class="cmt-del">Del</button>
+              <?php endif ?>
               <strong><?php echo $comment['username']; ?>:</strong>
-              <p><?php echo htmlspecialchars($comment['comment']); ?></p>
+              <p class="whitespace-pre-wrap"><?php echo htmlspecialchars($comment['comment']); ?></p>
             </div>
+            <form class="hidden" action="/" method="post">
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="comment_id" value="<?php echo $comment['id'] ?>">
+              <textarea name="comment" placeholder="Enter your comment here"><?php echo $comment['comment'] ?></textarea>
+              <div class="grid grid-cols-2 gap-x-4">
+                <button type="submit" name="submit_comment">Edit Comment</button>
+                <button class="cancel-btn" type="button">Cancel</button>
+              </div>
+            </form>
+            <form id="del-cmt-<?php echo $comment['id'] ?>" class="hidden" action="/" method="post">
+              <input type="hidden" name="action" value="del">
+              <input type="hidden" name="comment_id" value="<?php echo $comment['id'] ?>">
+            </form>
           <?php endforeach; ?>
 
           <!-- Comment form for University 1 -->
@@ -193,9 +210,26 @@ ob_start();
           <h3>Comments for <?php echo $universities[$uni2_query - 1]['name']; ?></h3>
           <?php foreach ($comments_uni2 as $comment): ?>
             <div class="comment">
+              <?php if ($comment['username'] === $_SESSION['email']): ?>
+                <button class="cmt-edit">Edit</button>
+                <button form="del-cmt-<?php echo $comment['id'] ?>" class="cmt-del">Del</button>
+              <?php endif ?>
               <strong><?php echo $comment['username']; ?>:</strong>
-              <p><?php echo htmlspecialchars($comment['comment']); ?></p>
+              <p class="whitespace-pre-wrap"><?php echo htmlspecialchars($comment['comment']); ?></p>
             </div>
+            <form class="hidden" action="/" method="post">
+              <input type="hidden" name="action" value="update">
+              <input type="hidden" name="comment_id" value="<?php echo $comment['id'] ?>">
+              <textarea name="comment" placeholder="Enter your comment here"><?php echo $comment['comment'] ?></textarea>
+              <div class="grid grid-cols-2 gap-x-4">
+                <button type="submit" name="submit_comment">Edit Comment</button>
+                <button class="cancel-btn" type="button">Cancel</button>
+              </div>
+            </form>
+            <form id="del-cmt-<?php echo $comment['id'] ?>" class="hidden" action="/" method="post">
+              <input type="hidden" name="action" value="del">
+              <input type="hidden" name="comment_id" value="<?php echo $comment['id'] ?>">
+            </form>
           <?php endforeach; ?>
 
           <!-- Comment form for University 2 -->
@@ -233,8 +267,10 @@ ob_start();
   }
 
   .comment {
+    position: relative;
     margin-bottom: 10px;
     padding: 8px;
+    padding-right: 3rem;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #fff;
@@ -253,18 +289,25 @@ ob_start();
     border-radius: 5px;
   }
 
-  button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: white;
+  .cmt-edit,
+  .cmt-del {
+    font-size: .85rem;
+    position: absolute;
+    padding: 0;
+    top: 8px;
+    right: 8px;
+    background: none;
     border: none;
-    border-radius: 5px;
+    color: black;
+    margin: 0;
   }
 
-  button:hover {
+  .cmt-del {
+    top: auto;
+    bottom: 8px;
+  }
+
+  button[type="submit"]:hover {
     background-color: #0056b3;
   }
 </style>
@@ -279,6 +322,24 @@ ob_start();
   });
   document.getElementById('uni2').addEventListener('change', (ev) => {
     uni2_q.setAttribute('value', universities.find((v) => v.name === ev.target.value).id);
+  });
+  document.querySelectorAll('.cmt-edit').forEach((n) => {
+    n.addEventListener('click', (e) => {
+      const btn = /** @type {HTMLButtonElement} */ (e.target);
+      const parent = btn.parentElement;
+      const form = parent.nextElementSibling;
+      parent.classList.add('hidden');
+      form.classList.remove('hidden');
+    });
+  });
+  document.querySelectorAll('.cancel-btn').forEach((n) => {
+    n.addEventListener('click', (e) => {
+      const btn = /** @type {HTMLButtonElement} */ (e.target);
+      const parent = btn.parentElement.parentElement;
+      const cmt = parent.previousElementSibling;
+      parent.classList.add('hidden');
+      cmt.classList.remove('hidden');
+    });
   });
 </script>
 

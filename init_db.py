@@ -115,7 +115,7 @@ def run():
                     institute_id INT NOT NULL,
                     comment_id INT NOT NULL,
                     FOREIGN KEY (user_id) REFERENCES users(id),
-                    FOREIGN KEY (comment_id) REFERENCES comments(id),
+                    FOREIGN KEY (comment_id) REFERENCES comments(id) ON DELETE CASCADE,
                     FOREIGN KEY (institute_id) REFERENCES institutions(id)
                     )""")
         )
