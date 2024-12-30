@@ -14,8 +14,6 @@
 
 - `controllers` handle the request from browser.
 
-- `models` are ER models.
-
 - `views` are PHP files that generate UI for frontend.
 
 - `db.php` handles DB connection, and DBAPI with PHP.
