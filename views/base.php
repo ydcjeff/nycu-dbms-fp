@@ -25,7 +25,7 @@
     <nav class="items-center gap-x-2">
       <?php
       session_start();
-      if(isset($_SESSION['email'])){
+      if (isset($_SESSION['email'])) {
         echo $_SESSION['email'];
         echo '<a href="/logout.php">Logout</a>';
         echo '<a href="/edit.php">Edit password</a>';
